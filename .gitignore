@@ -4,3 +4,12 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse artifacts, including WTP generated manifests
+.classpath
+.project
+test-output
+target/
+
+*.log
+hsf.configuration
