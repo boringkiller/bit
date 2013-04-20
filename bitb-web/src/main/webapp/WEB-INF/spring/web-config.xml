@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+	default-autowire="byName">
+
+	<!-- The controllers are autodetected POJOs labeled with the @Controller 
+		annotation. -->
+	<context:component-scan base-package="com.bit.bitb.web.controllers"
+		use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller"
+			type="annotation" />
+	</context:component-scan>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<util:list id="beanList">
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</util:list>
+		</property>
+	</bean>
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=GBK</value>
+				<value>application/json;charset=GBK</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Turns on support for mapping requests to Spring MVC @Controller methods 
+		Also registers default Formatters and Validators for use across all @Controllers -->
+	<mvc:annotation-driven conversion-service="applicationConversionService" />
+
+	<bean
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean"
+		id="applicationConversionService" />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources -->
+
+	<mvc:default-servlet-handler />
+
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath">
+			<value>/WEB-INF/templates</value>
+		</property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">GBK</prop><!-- 指定模板引擎进行模板处理的编码 -->
+				<prop key="output.encoding">GBK</prop><!-- 指定输出流的编码 -->
+				<prop key="contentType">text/html;charset=GBK</prop><!-- contentType -->
+			</props>
+		</property>
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.velocity.VelocityLayoutView">
+		</property>
+		<property name="layoutUrl" value="/layout/layout.vm" />
+		<property name="suffix" value=".vm" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true"></property>
+		<property name="screenContentKey" value="screen_content"></property>
+		<property name="toolboxConfigLocation" value="/WEB-INF/toolbox.xml" />
+		<property name="contentType" value="text/html;charset=GBK" />
+	</bean>
+</beans>
