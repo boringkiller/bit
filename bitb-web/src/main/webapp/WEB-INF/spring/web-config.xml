@@ -28,8 +28,8 @@
 		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
-				<value>text/html;charset=GBK</value>
-				<value>application/json;charset=GBK</value>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
 			</list>
 		</property>
 	</bean>
@@ -55,9 +55,9 @@
 		</property>
 		<property name="velocityProperties">
 			<props>
-				<prop key="input.encoding">GBK</prop><!-- 指定模板引擎进行模板处理的编码 -->
-				<prop key="output.encoding">GBK</prop><!-- 指定输出流的编码 -->
-				<prop key="contentType">text/html;charset=GBK</prop><!-- contentType -->
+				<prop key="input.encoding">UTF-8</prop><!-- 指定模板引擎进行模板处理的编码 -->
+				<prop key="output.encoding">UTF-8</prop><!-- 指定输出流的编码 -->
+				<prop key="contentType">text/html;charset=UTF-8</prop><!-- contentType -->
 			</props>
 		</property>
 	</bean>

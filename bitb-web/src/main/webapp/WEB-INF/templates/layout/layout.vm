@@ -1,2 +1,13 @@
-$screen_content
-<br/>
+<html >
+	<head >
+    </head>
+	
+	<body >
+		Ò³Í·¡£¡£¡£¡£
+		<hr />
+		$screen_content
+		
+		<hr/>
+		Ò³Î²¡£¡£¡£¡£
+    </body>
+</html>

@@ -1,1 +1,4 @@
 hello.
+#set($i=1)
+#set($b=$i+1)
+$b
