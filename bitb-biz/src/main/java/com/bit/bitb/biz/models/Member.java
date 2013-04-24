@@ -1,7 +1,6 @@
 package com.bit.bitb.biz.models;
 
 /**
- * ª·‘±Model.
  * 
  * @author simple56
  * 

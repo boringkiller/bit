@@ -13,3 +13,7 @@ target/
 
 *.log
 hsf.configuration
+#hot deploy 
+.settings
+.#webclasspath
+.tomcatplugin
