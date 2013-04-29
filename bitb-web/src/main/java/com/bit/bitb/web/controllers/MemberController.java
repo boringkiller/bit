@@ -14,6 +14,7 @@ public class MemberController {
 
 	@RequestMapping("/login")
 	public void index() {
-		tradeService.buy("3", "30");
+		//tradeService.buy("3", "30"); error
+		System.out.println("/member/login");
 	}
 }

@@ -1,6 +1,11 @@
 package com.bit.bitb.biz.service;
 
+import com.bit.bitb.biz.entity.Buying;
+import com.bit.bitb.biz.entity.Selling;
+
 public interface TradeService {
-	public void buy(String rmb,String bitb);
-	public void sell(String rmb,String bitb);
+
+	public boolean buy(Buying buying);
+
+	public boolean sell(Selling selling);
 }
