@@ -19,7 +19,7 @@ import com.bit.bitb.biz.util.OrderUtil;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/bitb-all.xml" })
+@ContextConfiguration(locations = { "classpath:bitb-all.xml" })
 public class UserCase1 {
 
 	@Autowired
