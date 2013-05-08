@@ -103,20 +103,22 @@ public class UserCase1 {
 		donedealAC.setInitiator("001");
 		donedealAC.setPrice(501f);
 		donedealAC.setQty(1f);
-		when(tradeService.finishDeal(donedealAC)).thenReturn(true);
-		when(tradeService.calcDealCost(donedealAC)).thenReturn(0.003f);
+		
+		when(tradeService.calcDealCost(donedealAC)).thenReturn(0.003f); //calculate deal cost
 		when(userService.increaseMoneyBalance(userA, 501f)).thenReturn(true);
 		when(userService.reduceMoneyBalance(userC, 501f)).thenReturn(true);
 		when(userService.increaseBtcBalance(userC, 1f-tradeService.calcDealCost(donedealAC))).thenReturn(true);
 		when(userService.reduceBtcBalance(userA, 1f)).thenReturn(true);
-		when(tradeService.receiveDealCost(donedealAC)).thenReturn(true);
-		System.out.println(tradeService.finishDeal(donedealAC));
+		when(tradeService.receiveDealCost(donedealAC)).thenReturn(true); //receive the payment into our own account
+		when(tradeService.finishDeal(donedealAC)).thenReturn(true);
+		
 		System.out.println("cost: "+tradeService.calcDealCost(donedealAC));
 		System.out.println(userService.increaseMoneyBalance(userA, 501f));
 		System.out.println(userService.reduceMoneyBalance(userC, 501f));
 		System.out.println(userService.increaseBtcBalance(userC, 1f-tradeService.calcDealCost(donedealAC)));
 		System.out.println(userService.reduceBtcBalance(userA, 1f));
 		System.out.println(tradeService.receiveDealCost(donedealAC));
+		System.out.println(tradeService.finishDeal(donedealAC));
 		
 
 	}
