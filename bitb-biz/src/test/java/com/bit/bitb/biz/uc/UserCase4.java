@@ -20,7 +20,7 @@ import com.bit.bitb.biz.util.OrderUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:bitb-all.xml" })
-public class UserCase3 {
+public class UserCase4 {
 
 	@Autowired
 	public TradeService tradeService;
@@ -35,20 +35,20 @@ public class UserCase3 {
 		validTo.setTime(now);
 		validTo.add(Calendar.MONTH, 1);
 
-		// user A sell 1 btc price 500
-		System.out.println("user A sell 1 btc price 500 :");
+		// user A sell 10 btc price 500
+		System.out.println("user A sell 10 btc price 500 :");
 		Selling userAselling = new Selling();
 		userAselling.setIdselling("S" + OrderUtil.genereateOrderNumberString());
 		userAselling.setSeller("001");
 		userAselling.setPrice(500f);
-		userAselling.setQty(1f);
+		userAselling.setQty(10f);
 		userAselling.setValidFrom(now);
 		userAselling.setValidTo(validTo.getTime());
 		when(tradeService.sell(userAselling)).thenReturn(false);
 		System.out.println(tradeService.sell(userAselling));
 
-		// user B buy 10 btc price 501
-		System.out.println("user B buy 10 btc price 501 :");
+		// user B buy 1 btc price 501
+		System.out.println("user B buy 1 btc price 501 :");
 		Buying userBbuying = new Buying();
 		userBbuying.setIdbuying("B" + OrderUtil.genereateOrderNumberString());
 		userBbuying.setBuyer("002");
@@ -58,12 +58,12 @@ public class UserCase3 {
 		userBbuying.setValidTo(validTo.getTime());
 		when(tradeService.buy(userBbuying)).thenReturn(true);
 		System.out.println(tradeService.buy(userBbuying));
-		
+
 		// insert into donedeal table
 		System.out.println("A deal is made between A and B, btc 1 price 501.");
 		Donedeal donedealAB = new Donedeal();
-		donedealAB.setBuyer("002"); //B
-		donedealAB.setSeller("001"); //A
+		donedealAB.setBuyer("002"); // B
+		donedealAB.setSeller("001"); // A
 		donedealAB.setIdbuying(userBbuying.getIdbuying());
 		donedealAB.setIdselling(userAselling.getIdselling());
 		donedealAB.setIddonedeal(0);
@@ -72,12 +72,12 @@ public class UserCase3 {
 		donedealAB.setQty(1f);
 		when(tradeService.finishDeal(donedealAB)).thenReturn(true);
 		System.out.println(tradeService.finishDeal(donedealAB));
-		
-		// user B still need 9 btc price 501
-		System.out.println("user B buy 9 btc price 501 :");
-		userBbuying.setQty(9f);
-		when(tradeService.buy(userBbuying)).thenReturn(false);
-		System.out.println(tradeService.buy(userBbuying));
+
+		// user A sell 9 btc price 500
+		System.out.println("user A sell 9 btc price 500 :");
+		userAselling.setQty(9f);
+		when(tradeService.sell(userAselling)).thenReturn(false);
+		System.out.println(tradeService.sell(userAselling));
 
 	}
 
