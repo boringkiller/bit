@@ -22,6 +22,12 @@ public class TradeServiceImpl implements TradeService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void removeExpiredOffer() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

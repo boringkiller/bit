@@ -11,4 +11,6 @@ public interface TradeService {
 	public boolean sell(Selling selling);
 	
 	public boolean finishDeal(Donedeal donedeal);
+
+	public void removeExpiredOffer();
 }
