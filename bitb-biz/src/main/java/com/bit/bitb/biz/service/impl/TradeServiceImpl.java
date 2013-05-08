@@ -28,6 +28,18 @@ public class TradeServiceImpl implements TradeService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public float calcDealCost(Donedeal donedeal) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean receiveDealCost(Donedeal donedealAC) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

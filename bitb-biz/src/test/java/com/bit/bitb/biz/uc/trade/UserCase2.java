@@ -1,4 +1,4 @@
-package com.bit.bitb.biz.uc;
+package com.bit.bitb.biz.uc.trade;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

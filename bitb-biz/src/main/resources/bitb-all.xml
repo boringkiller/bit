@@ -2,4 +2,5 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="byName">
 	<bean id="tradeService" class="com.bit.bitb.biz.service.impl.TradeServiceImpl"/>
+	<bean id="userService" class="com.bit.bitb.biz.service.impl.UserServiceImpl"/>
 </beans>

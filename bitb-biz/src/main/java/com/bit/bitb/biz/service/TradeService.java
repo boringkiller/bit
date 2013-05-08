@@ -11,6 +11,10 @@ public interface TradeService {
 	public boolean sell(Selling selling);
 	
 	public boolean finishDeal(Donedeal donedeal);
+	
+	public float calcDealCost(Donedeal donedeal);
 
 	public void removeExpiredOffer();
+
+	public boolean receiveDealCost(Donedeal donedealAC);
 }
