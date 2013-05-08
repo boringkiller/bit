@@ -13,10 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bit.bitb.biz.entity.Buying;
+import com.bit.bitb.biz.entity.Donedeal;
 import com.bit.bitb.biz.entity.Selling;
 import com.bit.bitb.biz.service.TradeService;
 import com.bit.bitb.biz.util.OrderUtil;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:bitb-all.xml" })
@@ -27,16 +27,15 @@ public class UserCase2 {
 
 	@Test
 	public void test() {
-		
+
 		tradeService = mock(TradeService.class);
 		Date now = new Date();
 		System.out.println(tradeService);
 		Calendar validTo = Calendar.getInstance();
 		validTo.setTime(now);
 		validTo.add(Calendar.MONTH, 1);
-		
-		
-		//user A buy 1 btc price 500
+
+		// user A buy 1 btc price 500
 		System.out.println("user A buy 1 btc price 500 :");
 		Buying userAbuying = new Buying();
 		userAbuying.setIdbuying("B" + OrderUtil.genereateOrderNumberString());
@@ -47,8 +46,8 @@ public class UserCase2 {
 		userAbuying.setValidTo(validTo.getTime());
 		when(tradeService.buy(userAbuying)).thenReturn(false);
 		System.out.println(tradeService.buy(userAbuying));
-		
-		//user B sell 1 btc price 501
+
+		// user B sell 1 btc price 501
 		System.out.println("user B sell 1 btc price 501 :");
 		Selling userBselling = new Selling();
 		userBselling.setIdselling("S" + OrderUtil.genereateOrderNumberString());
@@ -60,7 +59,7 @@ public class UserCase2 {
 		when(tradeService.sell(userBselling)).thenReturn(false);
 		System.out.println(tradeService.sell(userBselling));
 
-		//user C sell 1 btc price 499
+		// user C sell 1 btc price 499
 		System.out.println("user C sell 1 btc price 499 :");
 		Selling userCselling = new Selling();
 		userCselling.setIdselling("S" + OrderUtil.genereateOrderNumberString());
@@ -71,7 +70,20 @@ public class UserCase2 {
 		userCselling.setValidTo(validTo.getTime());
 		when(tradeService.sell(userCselling)).thenReturn(true);
 		System.out.println(tradeService.sell(userCselling));
-		
+
+		// insert into donedeal table
+		System.out.println("A deal is made between A and C, btc 1 price 500.");
+		Donedeal donedealAC = new Donedeal();
+		donedealAC.setBuyer("001"); // A
+		donedealAC.setSeller("003"); // C
+		donedealAC.setIdbuying(userAbuying.getIdbuying());
+		donedealAC.setIdselling(userCselling.getIdselling());
+		donedealAC.setIddonedeal(0);
+		donedealAC.setInitiator("001");
+		donedealAC.setPrice(500f);
+		donedealAC.setQty(1f);
+		when(tradeService.finishDeal(donedealAC)).thenReturn(true);
+		System.out.println(tradeService.finishDeal(donedealAC));
 	}
 
 }
