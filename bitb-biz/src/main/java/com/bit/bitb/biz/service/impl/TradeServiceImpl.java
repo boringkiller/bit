@@ -40,6 +40,30 @@ public class TradeServiceImpl implements TradeService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean freezeBtcWhenSell(Selling selling) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean freezeMoneyWhenBuy(Buying buying) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean unfreezeWhenCancel(Selling selling) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean unfreezeWhenCancel(Buying buying) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

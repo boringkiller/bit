@@ -17,4 +17,12 @@ public interface TradeService {
 	public void removeExpiredOffer();
 
 	public boolean receiveDealCost(Donedeal donedealAC);
+	
+	public boolean freezeBtcWhenSell(Selling selling);
+	
+	public boolean freezeMoneyWhenBuy(Buying buying);
+	
+	public boolean unfreezeWhenCancel(Selling selling);
+	
+	public boolean unfreezeWhenCancel(Buying buying);
 }

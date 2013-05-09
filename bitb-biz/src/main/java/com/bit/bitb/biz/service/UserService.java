@@ -11,4 +11,5 @@ public interface UserService {
 	public boolean increaseBtcBalance(User user, float num);
 
 	public boolean reduceBtcBalance(User user, float num);
+	
 }

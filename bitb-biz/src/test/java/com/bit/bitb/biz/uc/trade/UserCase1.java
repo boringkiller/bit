@@ -67,6 +67,8 @@ public class UserCase1 {
 		userAselling.setValidTo(validTo.getTime());
 		when(tradeService.sell(userAselling)).thenReturn(false);
 		System.out.println(tradeService.sell(userAselling));
+		when(tradeService.freezeBtcWhenSell(userAselling)).thenReturn(true);
+		
 
 		// user B buy 1 btc price 499
 		System.out.println("user B buy 1 btc price 499 :");
@@ -79,6 +81,7 @@ public class UserCase1 {
 		userBbuying.setValidTo(validTo.getTime());
 		when(tradeService.buy(userBbuying)).thenReturn(false);
 		System.out.println(tradeService.buy(userBbuying));
+		when(tradeService.freezeMoneyWhenBuy(userBbuying)).thenReturn(true);
 
 		// user C buy 1 btc price 501
 		System.out.println("user C buy 1 btc price 501 :");
@@ -91,6 +94,8 @@ public class UserCase1 {
 		userCbuying.setValidTo(validTo.getTime());
 		when(tradeService.buy(userCbuying)).thenReturn(true);
 		System.out.println(tradeService.buy(userCbuying));
+		when(tradeService.freezeMoneyWhenBuy(userBbuying)).thenReturn(true);
+
 
 		// insert into donedeal table
 		System.out.println("A deal is made between A and C, btc 1 price 501.");
