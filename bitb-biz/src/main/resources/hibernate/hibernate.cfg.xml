@@ -12,12 +12,5 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
-		<mapping class="com.bit.bitb.biz.entity.Btcrecharge" />
-		<mapping class="com.bit.bitb.biz.entity.Buying" />
-		<mapping class="com.bit.bitb.biz.entity.DoneDeal" />
-		<mapping class="com.bit.bitb.biz.entity.DoneDealHistory" />
-		<mapping class="com.bit.bitb.biz.entity.Moneyrecharge" />
-		<mapping class="com.bit.bitb.biz.entity.Selling" />
-		<mapping class="com.bit.bitb.biz.entity.User" />
 	</session-factory>
 </hibernate-configuration>
