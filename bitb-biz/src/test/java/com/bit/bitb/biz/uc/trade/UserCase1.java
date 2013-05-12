@@ -56,7 +56,7 @@ public class UserCase1 {
 		validTo.setTime(now);
 		validTo.add(Calendar.MONTH, 1);
 
-		// user A sell 1 btc price 500
+		//用户A出售一个比特币，要价500
 		System.out.println("user A sell 1 btc price 500 :");
 		Selling userAselling = new Selling();
 		userAselling.setIdselling("S" + OrderUtil.genereateOrderNumberString());
@@ -66,11 +66,12 @@ public class UserCase1 {
 		userAselling.setValidFrom(now);
 		userAselling.setValidTo(validTo.getTime());
 		when(tradeService.sell(userAselling)).thenReturn(false);
-		System.out.println(tradeService.sell(userAselling));
 		when(tradeService.freezeBtcWhenSell(userAselling)).thenReturn(true);
+		System.out.println(tradeService.sell(userAselling));
+		System.out.println(tradeService.freezeBtcWhenSell(userAselling));
 		
 
-		// user B buy 1 btc price 499
+		//用户B购买一个比特币，出价499，购买失败
 		System.out.println("user B buy 1 btc price 499 :");
 		Buying userBbuying = new Buying();
 		userBbuying.setIdbuying("B" + OrderUtil.genereateOrderNumberString());
@@ -80,10 +81,13 @@ public class UserCase1 {
 		userBbuying.setValidFrom(now);
 		userBbuying.setValidTo(validTo.getTime());
 		when(tradeService.buy(userBbuying)).thenReturn(false);
-		System.out.println(tradeService.buy(userBbuying));
 		when(tradeService.freezeMoneyWhenBuy(userBbuying)).thenReturn(true);
+		when(tradeService.match(userBbuying)).thenReturn(null);
+		System.out.println(tradeService.buy(userBbuying));
+		System.out.println(tradeService.freezeMoneyWhenBuy(userBbuying));
+		System.out.println(tradeService.match(userBbuying));
 
-		// user C buy 1 btc price 501
+		//用户C购买一个比特币，出价501，购买成功
 		System.out.println("user C buy 1 btc price 501 :");
 		Buying userCbuying = new Buying();
 		userCbuying.setIdbuying("B" + OrderUtil.genereateOrderNumberString());
@@ -93,12 +97,10 @@ public class UserCase1 {
 		userCbuying.setValidFrom(now);
 		userCbuying.setValidTo(validTo.getTime());
 		when(tradeService.buy(userCbuying)).thenReturn(true);
-		System.out.println(tradeService.buy(userCbuying));
 		when(tradeService.freezeMoneyWhenBuy(userBbuying)).thenReturn(true);
-
-
-		// insert into donedeal table
-		System.out.println("A deal is made between A and C, btc 1 price 501.");
+		System.out.println(tradeService.buy(userCbuying));
+		System.out.println(tradeService.freezeMoneyWhenBuy(userBbuying));
+		
 		Deal donedealAC = new Deal();
 		donedealAC.setBuyer("003"); // C
 		donedealAC.setSeller("001"); // A
@@ -108,21 +110,12 @@ public class UserCase1 {
 		donedealAC.setInitiator("001");
 		donedealAC.setPrice(String.valueOf(501f));
 		donedealAC.setQuantity(String.valueOf(1f));
-		
-		when(tradeService.calcDealCost(donedealAC)).thenReturn(0.003f); //calculate deal cost
-		when(userService.increaseMoneyBalance(userA, 501f)).thenReturn(true);
-		when(userService.reduceMoneyBalance(userC, 501f)).thenReturn(true);
-		when(userService.increaseBtcBalance(userC, 1f-tradeService.calcDealCost(donedealAC))).thenReturn(true);
-		when(userService.reduceBtcBalance(userA, 1f)).thenReturn(true);
-		when(tradeService.receiveDealCost(donedealAC)).thenReturn(true); //receive the payment into our own account
+		when(tradeService.match(userCbuying)).thenReturn(donedealAC);
+		System.out.println(tradeService.match(userCbuying));
+
+		//完成A和C交易
+		System.out.println("完成A和C交易.");
 		when(tradeService.finishDeal(donedealAC)).thenReturn(true);
-		
-		System.out.println("cost: "+tradeService.calcDealCost(donedealAC));
-		System.out.println(userService.increaseMoneyBalance(userA, 501f));
-		System.out.println(userService.reduceMoneyBalance(userC, 501f));
-		System.out.println(userService.increaseBtcBalance(userC, 1f-tradeService.calcDealCost(donedealAC)));
-		System.out.println(userService.reduceBtcBalance(userA, 1f));
-		System.out.println(tradeService.receiveDealCost(donedealAC));
 		System.out.println(tradeService.finishDeal(donedealAC));
 		
 
