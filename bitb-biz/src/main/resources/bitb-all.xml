@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="GB2312"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="byName">
-	<bean id="tradeService" class="com.bit.bitb.biz.service.impl.TradeServiceImpl"/>
-	<bean id="userService" class="com.bit.bitb.biz.service.impl.UserServiceImpl"/>
+	<bean id="tradeService" class="com.bit.bitb.biz.service.impl.TradeServiceImpl" />
+	<bean id="userService" class="com.bit.bitb.biz.service.impl.UserServiceImpl" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/test"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+		
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.bit.bitb.biz.entity.Btcrecharge</value>
+				<value>com.bit.bitb.biz.entity.Buying</value>
+				<value>com.bit.bitb.biz.entity.Donedeal</value>
+				<value>com.bit.bitb.biz.entity.DonedealHistory</value>
+				<value>com.bit.bitb.biz.entity.Moneyrecharge</value>
+				<value>com.bit.bitb.biz.entity.Selling</value>
+				<value>com.bit.bitb.biz.entity.User</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+				hibernate.format_sql=true
+				hibernate.show_sql=true
+				hibernate.hbm2ddl.auto=update
+			</value>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>
