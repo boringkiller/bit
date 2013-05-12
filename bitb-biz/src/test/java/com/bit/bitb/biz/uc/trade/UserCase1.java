@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bit.bitb.biz.entity.Buying;
-import com.bit.bitb.biz.entity.Donedeal;
+import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
 import com.bit.bitb.biz.entity.User;
 import com.bit.bitb.biz.service.TradeService;
@@ -35,18 +35,18 @@ public class UserCase1 {
 
 		User userA = new User();
 		userA.setIduser("001");
-		userA.setMoneybalance(0f);
-		userA.setBtcbalance(1f);
+		userA.setMoneybalance(String.valueOf(0f));
+		userA.setBtcbalance(String.valueOf(1f));
 		
 		User userB = new User();
 		userB.setIduser("002");
-		userB.setMoneybalance(499f);
-		userB.setBtcbalance(0f);
+		userB.setMoneybalance(String.valueOf(499f));
+		userB.setBtcbalance(String.valueOf(0f));
 		
 		User userC = new User();
 		userC.setIduser("003");
-		userC.setMoneybalance(501f);
-		userC.setBtcbalance(0f);
+		userC.setMoneybalance(String.valueOf(501f));
+		userC.setBtcbalance(String.valueOf(0f));
 		
 		tradeService = mock(TradeService.class);
 		userService = mock(UserService.class);
@@ -61,7 +61,7 @@ public class UserCase1 {
 		Selling userAselling = new Selling();
 		userAselling.setIdselling("S" + OrderUtil.genereateOrderNumberString());
 		userAselling.setSeller("001");
-		userAselling.setPrice(500f);
+		userAselling.setPrice(String.valueOf(500f));
 		userAselling.setQty(1f);
 		userAselling.setValidFrom(now);
 		userAselling.setValidTo(validTo.getTime());
@@ -75,7 +75,7 @@ public class UserCase1 {
 		Buying userBbuying = new Buying();
 		userBbuying.setIdbuying("B" + OrderUtil.genereateOrderNumberString());
 		userBbuying.setBuyer("002");
-		userBbuying.setPrice(499f);
+		userBbuying.setPrice(String.valueOf(499f));
 		userBbuying.setQty(1f);
 		userBbuying.setValidFrom(now);
 		userBbuying.setValidTo(validTo.getTime());
@@ -88,7 +88,7 @@ public class UserCase1 {
 		Buying userCbuying = new Buying();
 		userCbuying.setIdbuying("B" + OrderUtil.genereateOrderNumberString());
 		userCbuying.setBuyer("003");
-		userCbuying.setPrice(501f);
+		userCbuying.setPrice(String.valueOf(501f));
 		userCbuying.setQty(1f);
 		userCbuying.setValidFrom(now);
 		userCbuying.setValidTo(validTo.getTime());
@@ -99,15 +99,15 @@ public class UserCase1 {
 
 		// insert into donedeal table
 		System.out.println("A deal is made between A and C, btc 1 price 501.");
-		Donedeal donedealAC = new Donedeal();
+		Deal donedealAC = new Deal();
 		donedealAC.setBuyer("003"); // C
 		donedealAC.setSeller("001"); // A
 		donedealAC.setIdbuying(userCbuying.getIdbuying());
 		donedealAC.setIdselling(userAselling.getIdselling());
-		donedealAC.setIddonedeal(0);
+		donedealAC.setIddeal(0);
 		donedealAC.setInitiator("001");
-		donedealAC.setPrice(501f);
-		donedealAC.setQty(1f);
+		donedealAC.setPrice(String.valueOf(501f));
+		donedealAC.setQuantity(String.valueOf(1f));
 		
 		when(tradeService.calcDealCost(donedealAC)).thenReturn(0.003f); //calculate deal cost
 		when(userService.increaseMoneyBalance(userA, 501f)).thenReturn(true);

@@ -1,6 +1,6 @@
 package com.bit.bitb.biz.entity;
 
-// Generated Apr 29, 2013 8:09:40 PM by Hibernate Tools 3.4.0.CR1
+// Generated 2013-5-11 23:15:46 by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,12 +18,17 @@ import javax.persistence.TemporalType;
 public class Buying implements java.io.Serializable {
 
 	private String idbuying;
-	private String buyer;
-	private Float price;
-	private Float qty;
+	private String iduser;
+	private String memo;
+	private String price;
+	private String quantity;
 	private Date validFrom;
 	private Date validTo;
+	private Date createTs;
+	private Date modifyTs;
+	private String buyer;
 	private String note;
+	private Float qty;
 
 	public Buying() {
 	}
@@ -32,15 +37,21 @@ public class Buying implements java.io.Serializable {
 		this.idbuying = idbuying;
 	}
 
-	public Buying(String idbuying, String buyer, Float price, Float qty,
-			Date validFrom, Date validTo, String note) {
+	public Buying(String idbuying, String iduser, String memo, String price,
+			String quantity, Date validFrom, Date validTo, Date createTs,
+			Date modifyTs, String buyer, String note, Float qty) {
 		this.idbuying = idbuying;
-		this.buyer = buyer;
+		this.iduser = iduser;
+		this.memo = memo;
 		this.price = price;
-		this.qty = qty;
+		this.quantity = quantity;
 		this.validFrom = validFrom;
 		this.validTo = validTo;
+		this.createTs = createTs;
+		this.modifyTs = modifyTs;
+		this.buyer = buyer;
 		this.note = note;
+		this.qty = qty;
 	}
 
 	@Id
@@ -53,31 +64,40 @@ public class Buying implements java.io.Serializable {
 		this.idbuying = idbuying;
 	}
 
-	@Column(name = "buyer", length = 45)
-	public String getBuyer() {
-		return this.buyer;
+	@Column(name = "iduser", length = 45)
+	public String getIduser() {
+		return this.iduser;
 	}
 
-	public void setBuyer(String buyer) {
-		this.buyer = buyer;
+	public void setIduser(String iduser) {
+		this.iduser = iduser;
 	}
 
-	@Column(name = "price", precision = 12, scale = 0)
-	public Float getPrice() {
+	@Column(name = "memo", length = 45)
+	public String getMemo() {
+		return this.memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	@Column(name = "price", length = 100)
+	public String getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	@Column(name = "qty", precision = 12, scale = 0)
-	public Float getQty() {
-		return this.qty;
+	@Column(name = "quantity", length = 100)
+	public String getQuantity() {
+		return this.quantity;
 	}
 
-	public void setQty(Float qty) {
-		this.qty = qty;
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -100,6 +120,35 @@ public class Buying implements java.io.Serializable {
 		this.validTo = validTo;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_ts", length = 19)
+	public Date getCreateTs() {
+		return this.createTs;
+	}
+
+	public void setCreateTs(Date createTs) {
+		this.createTs = createTs;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "modify_ts", length = 19)
+	public Date getModifyTs() {
+		return this.modifyTs;
+	}
+
+	public void setModifyTs(Date modifyTs) {
+		this.modifyTs = modifyTs;
+	}
+
+	@Column(name = "buyer", length = 45)
+	public String getBuyer() {
+		return this.buyer;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
 	@Column(name = "note", length = 45)
 	public String getNote() {
 		return this.note;
@@ -109,11 +158,13 @@ public class Buying implements java.io.Serializable {
 		this.note = note;
 	}
 
-	@Override
-	public String toString() {
-		return "Buying [idbuying=" + idbuying + ", buyer=" + buyer + ", price="
-				+ price + ", qty=" + qty + ", validFrom=" + validFrom
-				+ ", validTo=" + validTo + ", note=" + note + "]";
+	@Column(name = "qty", precision = 12, scale = 0)
+	public Float getQty() {
+		return this.qty;
+	}
+
+	public void setQty(Float qty) {
+		this.qty = qty;
 	}
 
 }

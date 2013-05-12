@@ -1,7 +1,7 @@
 package com.bit.bitb.biz.service.impl;
 
 import com.bit.bitb.biz.entity.Buying;
-import com.bit.bitb.biz.entity.Donedeal;
+import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
 import com.bit.bitb.biz.service.TradeService;
 
@@ -18,7 +18,7 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public boolean finishDeal(Donedeal donedeal) {
+	public boolean finishDeal(Deal donedeal) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -30,13 +30,13 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public float calcDealCost(Donedeal donedeal) {
+	public float calcDealCost(Deal donedeal) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public boolean receiveDealCost(Donedeal donedealAC) {
+	public boolean receiveDealCost(Deal donedealAC) {
 		// TODO Auto-generated method stub
 		return false;
 	}

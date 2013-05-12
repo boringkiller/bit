@@ -1,7 +1,7 @@
 package com.bit.bitb.biz.service;
 
 import com.bit.bitb.biz.entity.Buying;
-import com.bit.bitb.biz.entity.Donedeal;
+import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
 
 public interface TradeService {
@@ -10,13 +10,13 @@ public interface TradeService {
 
 	public boolean sell(Selling selling);
 	
-	public boolean finishDeal(Donedeal donedeal);
+	public boolean finishDeal(Deal donedeal);
 	
-	public float calcDealCost(Donedeal donedeal);
+	public float calcDealCost(Deal donedeal);
 
 	public void removeExpiredOffer();
 
-	public boolean receiveDealCost(Donedeal donedealAC);
+	public boolean receiveDealCost(Deal donedealAC);
 	
 	public boolean freezeBtcWhenSell(Selling selling);
 	
