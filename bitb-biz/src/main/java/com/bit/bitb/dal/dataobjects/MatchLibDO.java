@@ -8,8 +8,13 @@ public class MatchLibDO {
 	private Date gmtModified;
 
 	private String userId;
-	private String price;
+	private Double price;
+	/**
+	 * 未处理数量
+	 */
 	private Double quantity;
+	private Long orderId;// 对应的订单ID
+	private Integer version = 0;// version用于控制并发
 
 	public Long getId() {
 		return id;
@@ -43,11 +48,11 @@ public class MatchLibDO {
 		this.userId = userId;
 	}
 
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -57,6 +62,26 @@ public class MatchLibDO {
 
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
+	}
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public void incrVersion() {
+		this.version = this.version + 1;
 	}
 
 }

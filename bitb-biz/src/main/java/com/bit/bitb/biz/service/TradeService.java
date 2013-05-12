@@ -29,19 +29,21 @@ public interface TradeService {
 	
 
 	/**
-	 * 鍖归厤
+	 * 匹配
+	 * 
 	 * <pre>
-	 * 1.浠庝拱瀹跺尮閰嶈〃涓嬁鍒板嚭浠锋渶楂�order by gmt_create,id
-	 * 2.浠庡崠瀹跺尮閰嶈〃涓嬁鍒板嚭浠锋渶浣�order by gmt_create desc,id desc
-	 * 3.鍖归厤鎴愬姛鍗虫垚浜�
+	 * 1.从买家匹配表中拿到出价最高,order by gmt_create,id
+	 * 2.从卖家匹配表中拿到出价最低,order by gmt_create desc,id desc
+	 * 3.匹配成功即成交.
 	 * 
-	 * 涔�39
-	 * 鍗�30鍗�	 * 
-	 * 鍏堝紑1涓洏鍙�
+	 * 买739
+	 * 卖730卖
 	 * 
-	 * 姣�绉掑惎鍔ㄤ竴娆″尮閰�
+	 * 先开1个盘口.
 	 * 
-	 * 寮�涓洏鍙ｏ紝F5鍧囪　
+	 * 每5秒启动一次匹配.
+	 * 
+	 * 开2个盘口，F5均衡
 	 * 
 	 * 
 	 * @return
@@ -49,31 +51,36 @@ public interface TradeService {
 	public boolean match();
 
 	/**
-	 * 涔�
+	 * 买.
+	 * 
 	 * <pre>
-	 * 涓嬪崟
-	 * 绯荤粺璁板綍涓嬪崟
-	 * 鎺ㄩ�鍗曞瓙鍒颁拱鍖归厤搴�
+	 * 下单
+	 * 系统记录下单
+	 * 推送单子到买匹配库;
 	 * 
 	 * @param userId
 	 * @param price
-	 * @param bitCoinAmount
+	 * @param quantity
+	 * @param tradePwd MD5加密.
 	 * @return
 	 */
-	public boolean buy(String userId,String price,double bitCoinAmount);
-	
+	public boolean buy(String userId, double price, double quantity,
+			String tradePwd);
+
 	/**
-	 * 鍗�
-	 * <pre>
-	 * 涓嬪崟
-	 * 绯荤粺璁板綍涓嬪崟
-	 * 鎺ㄩ�鍗曞瓙鍒板崠鍖归厤搴�
+	 * 卖.
 	 * 
+	 * <pre>
+	 * 下单
+	 * 系统记录下单
+	 * 推送单子到卖匹配库;
 	 * @param userId
 	 * @param price
-	 * @param bitCoinAmount
+	 * @param quantity
+	 * @param tradePwd
 	 * @return
 	 */
-	public boolean sell(String userId,String price,double bitCoinAmount);
+	public boolean sell(String userId, double price, double quantity,
+			String tradePwd);
 	
 }
