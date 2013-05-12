@@ -50,8 +50,8 @@ public class UserCase1 {
 		
 		tradeService = mock(TradeService.class);
 		userService = mock(UserService.class);
+		//用于设置有效期
 		Date now = new Date();
-		System.out.println(tradeService);
 		Calendar validTo = Calendar.getInstance();
 		validTo.setTime(now);
 		validTo.add(Calendar.MONTH, 1);
