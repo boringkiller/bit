@@ -1,6 +1,5 @@
 package com.bit.bitb.biz.service;
 
-import com.bit.bitb.biz.entity.User;
 
 /**
  * 安全模块
@@ -28,10 +27,10 @@ public interface SecurityService {
 	
 	
 	/**
-	 * 短信验证
+	 * 短信验证,从session中获取当前用户，发送验证码到手机，并将验证码存入session。在前台比较用户输入的验证码是否正确。
 	 * @return
 	 */
-	public boolean doSMSverification(User user);
+	public String doSMSverification();
 	
 	/**
 	 * 加密
