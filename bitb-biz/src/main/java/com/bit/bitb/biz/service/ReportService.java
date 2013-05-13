@@ -5,6 +5,11 @@ import java.util.List;
 import com.bit.bitb.biz.entity.Buying;
 import com.bit.bitb.biz.entity.Selling;
 
+/**
+ * 报表模块
+ * @author jimmy.du
+ * May 13, 2013
+ */
 public interface ReportService {
 
 	/**

@@ -3,6 +3,11 @@ package com.bit.bitb.biz.service;
 import com.bit.bitb.biz.entity.Buying;
 import com.bit.bitb.biz.entity.Selling;
 
+/**
+ * 冻结相关的业务
+ * @author jimmy.du
+ * May 13, 2013
+ */
 public interface FreezeService {
 	
 	/**

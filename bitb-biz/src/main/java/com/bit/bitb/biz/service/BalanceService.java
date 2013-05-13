@@ -2,6 +2,11 @@ package com.bit.bitb.biz.service;
 
 import com.bit.bitb.biz.entity.User;
 
+/**
+ * 专门处理现金和比特币的余额
+ * @author jimmy.du
+ * May 13, 2013
+ */
 public interface BalanceService {
 
 	/**
