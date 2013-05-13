@@ -2,6 +2,11 @@ package com.bit.bitb.biz.service;
 
 import com.bit.bitb.biz.entity.Deal;
 
+/**
+ * 负责处理交易费用问题
+ * @author jimmy.du
+ * May 13, 2013
+ */
 public interface DealCostService {
 	
 	/**
