@@ -33,16 +33,9 @@ public interface SecurityService {
 	public String doSMSverification();
 	
 	/**
-	 * 加密
+	 * 加密,与securityUtil重复
 	 * @param input
 	 * @return
 	 */
 	public String encrypt(String input);
-	
-	/**
-	 * 解密
-	 * @param input
-	 * @return
-	 */
-	public String decrypt(String input);
 }
