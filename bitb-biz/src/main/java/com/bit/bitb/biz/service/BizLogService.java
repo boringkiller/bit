@@ -7,5 +7,8 @@ package com.bit.bitb.biz.service;
  */
 public interface BizLogService {
 	
-	
+	/**
+	 * 将完成的交易移到交易历史表
+	 */
+	public void moveFinishedDealToHistoryTable();
 }

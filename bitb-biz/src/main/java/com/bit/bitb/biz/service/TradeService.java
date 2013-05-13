@@ -12,14 +12,14 @@ import com.bit.bitb.biz.entity.Selling;
 public interface TradeService {
 
 	/**
-	 * 下单购买
+	 * 下单购买, 将调用match方法做匹配，match成功则调finishDeal。失败则插入buying表
 	 * @param buying
 	 * @return
 	 */
 	public boolean buy(Buying buying);
 
 	/**
-	 * 下单出售
+	 * 下单出售，将调用match方法做匹配，match成功则调finishDeal。失败则插入selling表
 	 * @param selling
 	 * @return
 	 */
@@ -40,29 +40,15 @@ public interface TradeService {
 	public Deal match(Selling selling);
 	
 	/**
-	 * 完成交易
+	 * 完成交易，包括向买卖双方收取交易费，将成功信息插入deal表。
 	 * @param donedeal
 	 * @return
 	 */
 	public boolean finishDeal(Deal donedeal);
 	
 	/**
-	 * 根据交易意向计算交易收费
-	 * @param donedeal
-	 * @return
-	 */
-	public float calcDealCost(Deal donedeal);
-
-	/**
 	 * 定期移除过期的订单
 	 */
 	public void removeExpiredOffer();
-
-	/**
-	 * 收取交易手续费，将会调用calcDealCost方法
-	 * @param donedealAC
-	 * @return
-	 */
-	public boolean receiveDealCost(Deal donedealAC);
 	
 }
