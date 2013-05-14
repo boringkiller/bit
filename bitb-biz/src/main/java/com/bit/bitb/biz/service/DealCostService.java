@@ -10,7 +10,7 @@ import com.bit.bitb.biz.entity.Deal;
 public interface DealCostService {
 	
 	/**
-	 * 收取交易手续费，将会调用calcDealCost方法
+	 * 收取交易手续费，将会调用calcDealCost方法,收取费用存入公共账户
 	 * @param donedealAC
 	 * @return
 	 */
