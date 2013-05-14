@@ -1,39 +1,12 @@
 package com.bit.bitb.biz.service;
 
-import com.bit.bitb.biz.entity.User;
 
+/**
+ * 用户管理模块，包括用户注册， 资料修改，密码修改等等
+ * @author jimmy.du
+ * May 13, 2013
+ */
 public interface UserService {
 
-	/**
-	 * 现金账户增加
-	 * @param user
-	 * @param num
-	 * @return
-	 */
-	public boolean increaseMoneyBalance(User user, float num);
-
-	/**
-	 * 现金账户减少
-	 * @param user
-	 * @param num
-	 * @return
-	 */
-	public boolean reduceMoneyBalance(User user, float num);
-
-	/**
-	 * 比特币账户增加
-	 * @param user
-	 * @param num
-	 * @return
-	 */
-	public boolean increaseBtcBalance(User user, float num);
-
-	/**
-	 * 比特币账户减少
-	 * @param user
-	 * @param num
-	 * @return
-	 */
-	public boolean reduceBtcBalance(User user, float num);
 	
 }
