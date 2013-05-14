@@ -40,4 +40,22 @@ public interface BalanceService {
 	 * @return
 	 */
 	public boolean reduceBtcBalance(User user, float num);
+	
+	/**
+	 * 增加现金减少比特币
+	 * @param user
+	 * @param money
+	 * @param btc
+	 * @return
+	 */
+	public boolean increaseMoneyReduceBtc(User user, float money, float btc);
+	
+	/**
+	 * 增加比特币，减少现金
+	 * @param user
+	 * @param btc
+	 * @param money
+	 * @return
+	 */
+	public boolean increaseBtcReduceMondy(User user, float btc, float money);
 }
