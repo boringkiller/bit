@@ -1,4 +1,22 @@
-hello.
-#set($i=1)
-#set($b=$i+1)
-$b
+<font color="red">
+#if($!result=="1")
+			登陆成功!
+#elseif($!result=="-1")
+		登陆失败.
+#end
+</font>
+<form action="/bitb-web/member/doLogin" method="post">
+	<table border="0">
+			<tr >
+                <td>用户名：</td>
+                <td><input name="userName" value="" type="text"/></td>
+            </tr>
+			<tr >
+                <td>密码：</td>
+                <td><input name="pwd" value="" type="text"/></td>
+            </tr>
+			<tr >
+                <td colspan="2"><input type="submit" name="button" value="登陆"/></td>
+            </tr>
+    </table>
+</form>

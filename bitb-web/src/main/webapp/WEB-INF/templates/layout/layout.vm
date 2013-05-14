@@ -3,11 +3,10 @@
     </head>
 	
 	<body >
-		标题头.
+		#include("/layout/header.vm")
 		<hr />
 		$screen_content
-		
 		<hr/>
-		乱码.
+		#include("/layout/footer.vm")
     </body>
 </html>
