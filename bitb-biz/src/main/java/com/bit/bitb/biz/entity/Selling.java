@@ -27,7 +27,6 @@ public class Selling implements java.io.Serializable {
 	private Date createTs;
 	private Date modifyTs;
 	private String note;
-	private Float qty;
 	private String seller;
 
 	public Selling() {
@@ -39,7 +38,7 @@ public class Selling implements java.io.Serializable {
 
 	public Selling(String idselling, String iduser, String memo, String price,
 			String quantity, Date validFrom, Date validTo, Date createTs,
-			Date modifyTs, String note, Float qty, String seller) {
+			Date modifyTs, String note, String seller) {
 		this.idselling = idselling;
 		this.iduser = iduser;
 		this.memo = memo;
@@ -50,7 +49,6 @@ public class Selling implements java.io.Serializable {
 		this.createTs = createTs;
 		this.modifyTs = modifyTs;
 		this.note = note;
-		this.qty = qty;
 		this.seller = seller;
 	}
 
@@ -147,15 +145,6 @@ public class Selling implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
-	}
-
-	@Column(name = "qty", precision = 12, scale = 0)
-	public Float getQty() {
-		return this.qty;
-	}
-
-	public void setQty(Float qty) {
-		this.qty = qty;
 	}
 
 	@Column(name = "seller", length = 45)
