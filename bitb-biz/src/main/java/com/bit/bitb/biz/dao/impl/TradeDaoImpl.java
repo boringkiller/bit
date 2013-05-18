@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 
 import com.bit.bitb.biz.dao.TradeDao;
 import com.bit.bitb.biz.entity.Buying;
+import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
 
 public class TradeDaoImpl implements TradeDao {
@@ -45,6 +46,27 @@ public class TradeDaoImpl implements TradeDao {
 	public void updateSelling(Selling selling) {
 		Session session = this.sessionFactory.openSession();
 		session.update(selling);
+		session.close();
+	}
+
+	@Override
+	public void deleteSelling(String idselling) {
+		Session session = this.sessionFactory.openSession();
+		session.createQuery("delete from Selling where idselling = "+idselling).executeUpdate();
+		session.close();
+	}
+
+	@Override
+	public void deleteBuying(String idbuying) {
+		Session session = this.sessionFactory.openSession();
+		session.createQuery("delete from Buying where idselling = "+idbuying).executeUpdate();
+		session.close();		
+	}
+
+	@Override
+	public void insertDeal(Deal deal) {
+		Session session = this.sessionFactory.openSession();
+		session.save(deal);
 		session.close();
 	}
 

@@ -9,6 +9,7 @@ import com.bit.bitb.biz.entity.Buying;
 import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
 import com.bit.bitb.biz.service.TradeService;
+import com.bit.bitb.biz.util.ConstantUtil;
 
 public class TradeServiceImpl implements TradeService {
 
@@ -34,6 +35,7 @@ public class TradeServiceImpl implements TradeService {
 			Selling leftSelling = null;
 			for (Selling selling : sellings) {
 				if (buying.getQuantity() != null && Double.valueOf(buying.getQuantity()) > 0) {
+					Deal deal = new Deal();
 					Double qtyDoubleBuying = Double.valueOf(buying.getQuantity());
 					Double qtyDoubleSelling = Double.valueOf(selling.getQuantity());
 					Double qtyDouble;
@@ -53,10 +55,10 @@ public class TradeServiceImpl implements TradeService {
 							buying.setQuantity("0");
 							selling.setQuantity(String.valueOf(qtyDoubleSelling - qtyDoubleBuying));
 							leftSelling = selling;
+							deal.setMemo(ConstantUtil.MEMO_SELLINGSURPLUS);
 						}
 					}
 					
-					Deal deal = new Deal();
 					deal.setBuyer(buying.getBuyer());
 					deal.setCreateTs(new Date());
 					deal.setIdbuying(buying.getIdbuying());
@@ -69,6 +71,7 @@ public class TradeServiceImpl implements TradeService {
 					deal.setSeller(selling.getSeller());
 					
 					deals.add(deal);
+					finishDeal(deal); //匹配成功
 					
 				} else {
 					//卖方还有多
@@ -76,9 +79,6 @@ public class TradeServiceImpl implements TradeService {
 				}
 			}
 			
-			for (Deal deal : deals) {
-				finishDeal(deal); //匹配成功
-			}
 			if (buying.getQuantity() != null && Double.valueOf(buying.getQuantity()) > 0) {
 				//买方无法满足，插入buying表继续等待
 				tradeDao.insertBuying(buying);
@@ -97,8 +97,26 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public boolean finishDeal(Deal donedeal) {
-		// TODO Auto-generated method stub
+	public boolean finishDeal(Deal deal) {
+		if (deal.getInitiator().equals(deal.getBuyer())) {
+			//买入单
+			if (deal.getMemo().equals(ConstantUtil.MEMO_SELLINGSURPLUS)) {
+				//最后一位卖家有多余，不能直接删除
+				tradeDao.insertDeal(deal);
+			} else {
+				tradeDao.deleteSelling(deal.getIdselling());
+				tradeDao.insertDeal(deal);
+			}
+		} else {
+			// 卖出单
+			if (deal.getMemo().equals(ConstantUtil.MEMO_BUYINGSURPLUS)) {
+				//最后一位买家有多余，不能直接删除
+				tradeDao.insertDeal(deal);
+			} else {
+				tradeDao.deleteBuying(deal.getIdbuying());
+				tradeDao.insertDeal(deal);
+			}
+		}
 		return false;
 	}
 
