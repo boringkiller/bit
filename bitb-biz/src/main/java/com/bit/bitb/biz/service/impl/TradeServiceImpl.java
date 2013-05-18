@@ -24,8 +24,8 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public List<Deal> sell(Selling selling) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Deal> deals = match(selling);
+		return deals;
 	}
 
 	@Override
@@ -64,7 +64,6 @@ public class TradeServiceImpl implements TradeService {
 					deal.setIdbuying(buying.getIdbuying());
 					deal.setIdselling(selling.getIdselling());
 					deal.setInitiator(buying.getBuyer());
-					deal.setMemo("");
 					deal.setModifyTs(null);
 					deal.setPrice(buying.getPrice());
 					deal.setQuantity(qtyDouble.toString());
@@ -92,8 +91,63 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public List<Deal> match(Selling selling) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Deal> deals = new ArrayList<Deal>();
+		List<Buying> buyings = tradeDao.match(selling);
+		Buying leftBuying = null;
+		for (Buying buying : buyings) {
+			if (selling.getQuantity() != null && Double.valueOf(selling.getQuantity()) > 0) {
+				Deal deal = new Deal();
+				Double qtyDoubleBuying = Double.valueOf(buying.getQuantity());
+				Double qtyDoubleSelling = Double.valueOf(selling.getQuantity());
+				Double qtyDouble;
+				//判断实际交易数量
+				if (qtyDoubleSelling > qtyDoubleBuying ) {
+					//卖方多余
+					qtyDouble = qtyDoubleBuying; 
+					selling.setQuantity(String.valueOf(qtyDoubleSelling - qtyDoubleBuying));
+				} else {
+					if (qtyDoubleBuying == qtyDoubleSelling) {
+						//双方都没有多余
+						qtyDouble = qtyDoubleBuying;
+						selling.setQuantity("0");
+					} else {
+						//买方多余
+						qtyDouble = qtyDoubleSelling;
+						selling.setQuantity("0");
+						buying.setQuantity(String.valueOf(qtyDoubleSelling - qtyDoubleBuying));
+						leftBuying = buying;
+						deal.setMemo(ConstantUtil.MEMO_BUYINGSURPLUS);
+					}
+				}
+				
+				deal.setBuyer(buying.getBuyer());
+				deal.setCreateTs(new Date());
+				deal.setIdbuying(buying.getIdbuying());
+				deal.setIdselling(selling.getIdselling());
+				deal.setInitiator(buying.getBuyer());
+				deal.setModifyTs(null);
+				deal.setPrice(buying.getPrice());
+				deal.setQuantity(qtyDouble.toString());
+				deal.setSeller(selling.getSeller());
+				
+				deals.add(deal);
+				finishDeal(deal); //匹配成功
+				
+			} else {
+				//卖方还有多
+				break;
+			}
+		}
+		
+		if (selling.getQuantity() != null && Double.valueOf(selling.getQuantity()) > 0) {
+			//买方无法满足，插入buying表继续等待
+			tradeDao.insertSelling(selling);
+		}
+		if (leftBuying != null) {
+			tradeDao.updateBuying(leftBuying);
+		}
+
+		return deals;
 	}
 
 	@Override

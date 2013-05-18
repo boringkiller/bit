@@ -70,5 +70,29 @@ public class TradeDaoImpl implements TradeDao {
 		session.close();
 	}
 
+	@Override
+	public List<Buying> match(Selling selling) {
+		Session session = this.sessionFactory.openSession();
+		Query query = session.createQuery("from Buying where price >" + selling.getPrice() +" order by create_ts");
+		@SuppressWarnings("unchecked")
+		List<Buying> buyings = query.list();
+		session.close();
+		return buyings;
+	}
+
+	@Override
+	public void insertSelling(Selling selling) {
+		Session session = this.sessionFactory.openSession();
+		session.save(selling);
+		session.close();
+	}
+
+	@Override
+	public void updateBuying(Buying buying) {
+		Session session = this.sessionFactory.openSession();
+		session.update(buying);
+		session.close();
+	}
+
 
 }
