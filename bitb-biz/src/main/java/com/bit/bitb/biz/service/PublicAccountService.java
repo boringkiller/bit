@@ -11,12 +11,12 @@ public interface PublicAccountService {
 	 * 现金存入公共账户
 	 * @param money
 	 */
-	public boolean addMoneyToPubAccount(float money);
+	public boolean addMoneyToPubAccount(double money);
 	
 	/**
 	 * 比特币存入公共账户
 	 * @param btc
 	 * @return
 	 */
-	public boolean addBtcToPubAccount(float btc); 
+	public boolean addBtcToPubAccount(double btc); 
 }

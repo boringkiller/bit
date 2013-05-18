@@ -8,12 +8,15 @@ import com.bit.bitb.biz.dao.TradeDao;
 import com.bit.bitb.biz.entity.Buying;
 import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
+import com.bit.bitb.biz.service.DealCostService;
 import com.bit.bitb.biz.service.TradeService;
 import com.bit.bitb.biz.util.ConstantUtil;
 
 public class TradeServiceImpl implements TradeService {
 
 	private TradeDao tradeDao;
+	
+	private DealCostService dealCostService;
 	
 	
 	@Override
@@ -152,26 +155,34 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public boolean finishDeal(Deal deal) {
-		if (deal.getInitiator().equals(deal.getBuyer())) {
-			//买入单
-			if (deal.getMemo().equals(ConstantUtil.MEMO_SELLINGSURPLUS)) {
-				//最后一位卖家有多余，不能直接删除
-				tradeDao.insertDeal(deal);
+		try {
+			if (deal.getInitiator().equals(deal.getBuyer())) {
+				//买入单
+				if (deal.getMemo().equals(ConstantUtil.MEMO_SELLINGSURPLUS)) {
+					//最后一位卖家有多余，不能直接删除
+					tradeDao.insertDeal(deal);
+				} else {
+					tradeDao.deleteSelling(deal.getIdselling());
+					tradeDao.insertDeal(deal);
+				}
 			} else {
-				tradeDao.deleteSelling(deal.getIdselling());
-				tradeDao.insertDeal(deal);
+				// 卖出单
+				if (deal.getMemo().equals(ConstantUtil.MEMO_BUYINGSURPLUS)) {
+					//最后一位买家有多余，不能直接删除
+					tradeDao.insertDeal(deal);
+				} else {
+					tradeDao.deleteBuying(deal.getIdbuying());
+					tradeDao.insertDeal(deal);
+				}
 			}
-		} else {
-			// 卖出单
-			if (deal.getMemo().equals(ConstantUtil.MEMO_BUYINGSURPLUS)) {
-				//最后一位买家有多余，不能直接删除
-				tradeDao.insertDeal(deal);
-			} else {
-				tradeDao.deleteBuying(deal.getIdbuying());
-				tradeDao.insertDeal(deal);
-			}
+			
+			//收取交易费用
+			dealCostService.payAndReceiveDealCost(deal);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	@Override

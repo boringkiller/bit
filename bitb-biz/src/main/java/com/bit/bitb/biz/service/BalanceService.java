@@ -15,15 +15,15 @@ public interface BalanceService {
 	 * @param num
 	 * @return
 	 */
-	public boolean increaseMoneyBalance(User user, float num);
+	public boolean increaseMoneyBalance(User user, double num);
 
 	/**
 	 * 现金账户减少
 	 * @param user
-	 * @param num
+	 * @param d
 	 * @return
 	 */
-	public boolean reduceMoneyBalance(User user, float num);
+	public boolean reduceMoneyBalance(User user, double num);
 
 	/**
 	 * 比特币账户增加
@@ -31,7 +31,7 @@ public interface BalanceService {
 	 * @param num
 	 * @return
 	 */
-	public boolean increaseBtcBalance(User user, float num);
+	public boolean increaseBtcBalance(User user, double num);
 
 	/**
 	 * 比特币账户减少
@@ -39,7 +39,7 @@ public interface BalanceService {
 	 * @param num
 	 * @return
 	 */
-	public boolean reduceBtcBalance(User user, float num);
+	public boolean reduceBtcBalance(User user, double num);
 	
 	/**
 	 * 增加现金减少比特币
@@ -48,7 +48,7 @@ public interface BalanceService {
 	 * @param btc
 	 * @return
 	 */
-	public boolean increaseMoneyReduceBtc(User user, float money, float btc);
+	public boolean increaseMoneyReduceBtc(User user, double money, double btc);
 	
 	/**
 	 * 增加比特币，减少现金
@@ -57,5 +57,5 @@ public interface BalanceService {
 	 * @param money
 	 * @return
 	 */
-	public boolean increaseBtcReduceMondy(User user, float btc, float money);
+	public boolean increaseBtcReduceMondy(User user, double btc, double money);
 }
