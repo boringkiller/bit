@@ -11,14 +11,14 @@ import com.bit.bitb.biz.entity.Selling;
 public interface FreezeService {
 	
 	/**
-	 * 卖家出售时，冻结他要出售的那部分比特币
+	 * 卖家出售时，冻结他要出售的那部分比特币，移入btcfreeze字段
 	 * @param selling
 	 * @return
 	 */
 	public boolean freezeBtcWhenSell(Selling selling);
 
 	/**
-	 * 买家买入时，冻结他出价的那部分资金
+	 * 买家买入时，冻结他出价的那部分资金,移入moneyfreeze字段
 	 * @param buying
 	 * @return
 	 */

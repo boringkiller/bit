@@ -9,6 +9,7 @@ import com.bit.bitb.biz.entity.Buying;
 import com.bit.bitb.biz.entity.Deal;
 import com.bit.bitb.biz.entity.Selling;
 import com.bit.bitb.biz.service.DealCostService;
+import com.bit.bitb.biz.service.FreezeService;
 import com.bit.bitb.biz.service.TradeService;
 import com.bit.bitb.biz.util.ConstantUtil;
 
@@ -18,16 +19,31 @@ public class TradeServiceImpl implements TradeService {
 	
 	private DealCostService dealCostService;
 	
+	private FreezeService freezeService;
 	
 	@Override
 	public List<Deal> buy(Buying buying) {
+		
+		boolean flag = false;
+		do {
+			flag = freezeService.freezeMoneyWhenBuy(buying);
+		} while(flag == false);
+		
 		List<Deal> deals = match(buying);
+		
 		return deals;
 	}
 
 	@Override
 	public List<Deal> sell(Selling selling) {
+		
+		boolean flag = false;
+		do {
+			flag = freezeService.freezeBtcWhenSell(selling);
+		} while(flag == false);
+		
 		List<Deal> deals = match(selling);
+		
 		return deals;
 	}
 
@@ -197,6 +213,22 @@ public class TradeServiceImpl implements TradeService {
 
 	public void setTradeDao(TradeDao tradeDao) {
 		this.tradeDao = tradeDao;
+	}
+
+	public DealCostService getDealCostService() {
+		return dealCostService;
+	}
+
+	public void setDealCostService(DealCostService dealCostService) {
+		this.dealCostService = dealCostService;
+	}
+
+	public FreezeService getFreezeService() {
+		return freezeService;
+	}
+
+	public void setFreezeService(FreezeService freezeService) {
+		this.freezeService = freezeService;
 	}
 
 }

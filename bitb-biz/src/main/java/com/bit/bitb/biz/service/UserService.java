@@ -12,5 +12,7 @@ public interface UserService {
 
 	public User getUserById(String buyer);
 
+	public void updateUser(User user);
+
 	
 }
