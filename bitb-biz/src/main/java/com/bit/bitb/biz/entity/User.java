@@ -39,41 +39,13 @@ public class User implements java.io.Serializable {
 	private String tradepwd;
 	private String alipayaccount;
 	private String bitcoinaccount;
+	private String type;
 
 	public User() {
 	}
 
 	public User(String iduser) {
 		this.iduser = iduser;
-	}
-
-	public User(String iduser, String username, Character gender, Integer age,
-			String phone, String moneybalance, String btcbalance, String memo,
-			String address, Date birthday, String email, String mobilephone,
-			String qq, String realname, String weibo, String idcard,
-			String moneyfreeze, String btcfreeze, String password, String tradepwd,String alipayaccount, String bitcoinaccount) {
-		this.iduser = iduser;
-		this.username = username;
-		this.gender = gender;
-		this.age = age;
-		this.phone = phone;
-		this.moneybalance = moneybalance;
-		this.btcbalance = btcbalance;
-		this.memo = memo;
-		this.address = address;
-		this.birthday = birthday;
-		this.email = email;
-		this.mobilephone = mobilephone;
-		this.qq = qq;
-		this.realname = realname;
-		this.weibo = weibo;
-		this.idcard = idcard;
-		this.moneyfreeze = moneyfreeze;
-		this.btcfreeze = btcfreeze;
-		this.password = password;
-		this.tradepwd = tradepwd;
-		this.alipayaccount = alipayaccount;
-		this.bitcoinaccount = bitcoinaccount;
 	}
 
 	@Id
@@ -275,5 +247,48 @@ public class User implements java.io.Serializable {
 	public void setBitcoinaccount(String bitcoinaccount) {
 		this.bitcoinaccount = bitcoinaccount;
 	}
+	
+	@Column(name = "type", length = 20)
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public User(String iduser, String username, Character gender, Integer age,
+			String phone, String moneybalance, String btcbalance, String memo,
+			String address, Date birthday, String email, String mobilephone,
+			String qq, String realname, String weibo, String idcard,
+			String moneyfreeze, String btcfreeze, String password,
+			String tradepwd, String alipayaccount, String bitcoinaccount,
+			String type) {
+		super();
+		this.iduser = iduser;
+		this.username = username;
+		this.gender = gender;
+		this.age = age;
+		this.phone = phone;
+		this.moneybalance = moneybalance;
+		this.btcbalance = btcbalance;
+		this.memo = memo;
+		this.address = address;
+		this.birthday = birthday;
+		this.email = email;
+		this.mobilephone = mobilephone;
+		this.qq = qq;
+		this.realname = realname;
+		this.weibo = weibo;
+		this.idcard = idcard;
+		this.moneyfreeze = moneyfreeze;
+		this.btcfreeze = btcfreeze;
+		this.password = password;
+		this.tradepwd = tradepwd;
+		this.alipayaccount = alipayaccount;
+		this.bitcoinaccount = bitcoinaccount;
+		this.type = type;
+	}
+
 
 }
