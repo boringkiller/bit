@@ -57,5 +57,5 @@ public interface BalanceService {
 	 * @param money
 	 * @return
 	 */
-	public boolean increaseBtcReduceMondy(User user, double btc, double money);
+	public boolean increaseBtcReduceMoney(User user, double btc, double money);
 }

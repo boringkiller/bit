@@ -18,7 +18,7 @@ public class DealCostServiceImpl implements DealCostService {
 	private PublicAccountService publicAccountService;
 	
 	@Override
-	public boolean payAndReceiveDealCost(Deal deal) {
+	public boolean tradeAndReceiveDealCost(Deal deal) {
 		try {
 			User buyer = userService.getUserById(deal.getBuyer());
 			User seller = userService.getUserById(deal.getSeller());
@@ -27,10 +27,11 @@ public class DealCostServiceImpl implements DealCostService {
 			double quantity = Double.valueOf(deal.getQuantity());
 			double moneyCost = calcDealCostInMoney(deal);
 			double btcCost = calcDealCostInBtc(deal);
-			balanceService.reduceMoneyBalance(buyer, totalAmount); 
-			balanceService.increaseBtcBalance(buyer, MathUtils.sub(quantity, btcCost)); //付出比特币，从冻结的比特币里面
-			balanceService.reduceBtcBalance(seller, quantity); 
-			balanceService.increaseMoneyBalance(seller, MathUtils.sub(totalAmount, moneyCost)); //付出现金，从冻结的现金里面
+			//付出比特币，从冻结的比特币里面
+			balanceService.increaseBtcReduceMoney(buyer, MathUtils.sub(quantity, btcCost), totalAmount);
+			//付出现金，从冻结的现金里面
+			balanceService.increaseMoneyReduceBtc(seller, MathUtils.sub(totalAmount, moneyCost), quantity);
+			
 			publicAccountService.addBtcToPubAccount(btcCost);
 			publicAccountService.addMoneyToPubAccount(moneyCost);
 		} catch (NumberFormatException e) {

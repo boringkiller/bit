@@ -37,6 +37,8 @@ public class User implements java.io.Serializable {
 	private String btcfreeze;
 	private String password;
 	private String tradepwd;
+	private String alipayaccount;
+	private String bitcoinaccount;
 
 	public User() {
 	}
@@ -49,7 +51,7 @@ public class User implements java.io.Serializable {
 			String phone, String moneybalance, String btcbalance, String memo,
 			String address, Date birthday, String email, String mobilephone,
 			String qq, String realname, String weibo, String idcard,
-			String moneyfreeze, String btcfreeze, String password, String tradepwd) {
+			String moneyfreeze, String btcfreeze, String password, String tradepwd,String alipayaccount, String bitcoinaccount) {
 		this.iduser = iduser;
 		this.username = username;
 		this.gender = gender;
@@ -70,6 +72,8 @@ public class User implements java.io.Serializable {
 		this.btcfreeze = btcfreeze;
 		this.password = password;
 		this.tradepwd = tradepwd;
+		this.alipayaccount = alipayaccount;
+		this.bitcoinaccount = bitcoinaccount;
 	}
 
 	@Id
@@ -252,6 +256,24 @@ public class User implements java.io.Serializable {
 
 	public void setTradepwd(String tradepwd) {
 		this.tradepwd = tradepwd;
+	}
+
+	@Column(name = "alipayaccount", length = 50)
+	public String getAlipayaccount() {
+		return alipayaccount;
+	}
+
+	public void setAlipayaccount(String alipayaccount) {
+		this.alipayaccount = alipayaccount;
+	}
+
+	@Column(name = "bitcoinaccount", length = 50)
+	public String getBitcoinaccount() {
+		return bitcoinaccount;
+	}
+
+	public void setBitcoinaccount(String bitcoinaccount) {
+		this.bitcoinaccount = bitcoinaccount;
 	}
 
 }

@@ -194,8 +194,8 @@ public class TradeServiceImpl implements TradeService {
 				}
 			}
 			
-			//收取交易费用
-			dealCostService.payAndReceiveDealCost(deal);
+			//双方交易并收取交易费用
+			dealCostService.tradeAndReceiveDealCost(deal);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

@@ -14,7 +14,7 @@ public interface DealCostService {
 	 * @param donedealAC
 	 * @return
 	 */
-	public boolean payAndReceiveDealCost(Deal deal);
+	public boolean tradeAndReceiveDealCost(Deal deal);
 	
 	/**
 	 * 根据交易意向计算交易收费，比特币。
