@@ -16,14 +16,19 @@ public class FreezeServiceImpl implements FreezeService {
 	public boolean freezeBtcWhenSell(Selling selling) {
 		try {
 			User user = userService.getUserById(selling.getSeller());
-			user.setBtcbalance(MathUtils.sub(user.getBtcbalance(),selling.getQuantity()).toString());
-			user.setBtcfreeze(selling.getQuantity());
-			userService.updateUser(user);
+			Double btcBalance = MathUtils.sub(user.getBtcbalance(), selling.getQuantity()).doubleValue();
+			if (btcBalance > 0) {
+				user.setBtcbalance(btcBalance.toString());
+				user.setBtcfreeze(selling.getQuantity());
+				userService.updateUser(user);
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 
 	@Override
@@ -31,14 +36,19 @@ public class FreezeServiceImpl implements FreezeService {
 		try {
 			Double totalAmount =  MathUtils.multWithAccurated(buying.getQuantity(), buying.getPrice());
 			User user = userService.getUserById(buying.getBuyer());
-			user.setMoneybalance(MathUtils.sub(user.getMoneybalance(), totalAmount.toString()).toString());
-			user.setMoneyfreeze(totalAmount.toString());
-			userService.updateUser(user);
+			Double balance = MathUtils.sub(user.getMoneybalance(), totalAmount.toString()).doubleValue();
+			if (balance > 0) {
+				user.setMoneybalance(balance.toString());
+				user.setMoneyfreeze(totalAmount.toString());
+				userService.updateUser(user);
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 
 	@Override

@@ -24,27 +24,28 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public List<Deal> buy(Buying buying) {
 		
-		boolean flag = false;
-		do {
-			flag = freezeService.freezeMoneyWhenBuy(buying);
-		} while(flag == false);
+		boolean isFreezed = false;
+		isFreezed = freezeService.freezeMoneyWhenBuy(buying);
+		if (isFreezed) {
+			List<Deal> deals = match(buying);
+			return deals;
+		} else {
+			return null;
+		}
 		
-		List<Deal> deals = match(buying);
-		
-		return deals;
 	}
 
 	@Override
 	public List<Deal> sell(Selling selling) {
 		
-		boolean flag = false;
-		do {
-			flag = freezeService.freezeBtcWhenSell(selling);
-		} while(flag == false);
-		
-		List<Deal> deals = match(selling);
-		
-		return deals;
+		boolean isFreezed = false;
+		isFreezed = freezeService.freezeBtcWhenSell(selling);
+		if (isFreezed) {
+			List<Deal> deals = match(selling);
+			return deals;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -153,22 +154,23 @@ public class TradeServiceImpl implements TradeService {
 				finishDeal(deal); //匹配成功
 				
 			} else {
-				//卖方还有多
+				//买方还有多
 				break;
 			}
 		}
 		
 		if (selling.getQuantity() != null && Double.valueOf(selling.getQuantity()) > 0) {
-			//买方无法满足，插入buying表继续等待
+			//卖方无法满足，插入selling表继续等待
 			tradeDao.insertSelling(selling);
 		}
 		if (leftBuying != null) {
+			//买方无法满足，更新buying表继续等待
 			tradeDao.updateBuying(leftBuying);
 		}
 
 		return deals;
 	}
-
+	
 	@Override
 	public boolean finishDeal(Deal deal) {
 		try {
